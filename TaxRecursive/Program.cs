@@ -106,8 +106,11 @@ namespace TaxRecursive
                     "Press [1] to find your Net (after Tax), in case you already know the full revenue" +
                     "\n" +
                     "Press [2] to find the Revenue when you only know the Net Payment..." +
-                    "\n\n" +
-                    "Press [Esc] to Exit.");
+                    "\n\n");
+
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("Press [Esc] to Exit.");
+
                 CKI = Console.ReadKey();
                 if (CKI.Key == ConsoleKey.NumPad1 || CKI.Key == ConsoleKey.D1)
                 {
@@ -205,17 +208,6 @@ namespace TaxRecursive
 
             }
             while (CKI.Key != ConsoleKey.Escape);
-
-
-
-
-            //Console.WriteLine("Enter your Net Number:");            
-            //float Net = Convert.ToInt32(Console.ReadLine());
-            //Console.WriteLine("\n");        
-
-            //Console.WriteLine("Net Number is: {0}", Net.ToString("N0"));
-
-            //Console.ReadKey();
         }
 
 
