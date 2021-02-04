@@ -116,6 +116,7 @@ namespace TaxRecursive
                         CKI = Console.ReadKey();
                     }
                     while (CKI.Key != ConsoleKey.Escape);
+                    CKI = new ConsoleKeyInfo();//clear key
                 }
                 else if (CKI.Key == ConsoleKey.NumPad2)
                 {
@@ -167,9 +168,9 @@ namespace TaxRecursive
                         CKI = Console.ReadKey();
                     }
                     while (CKI.Key != ConsoleKey.Escape);
-
+                    CKI = new ConsoleKeyInfo();//clear key
                 }
-                CKI = new ConsoleKeyInfo();//clear key
+
             }
             while (CKI.Key != ConsoleKey.Escape);
 

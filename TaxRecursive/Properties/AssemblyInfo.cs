@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TaxRecursive")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Tax Recursive")]
+[assembly: AssemblyDescription("for Laos Tax Calculation")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TaxRecursive")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Unknown Game Studio")]
+[assembly: AssemblyProduct("Tax Recursive")]
+[assembly: AssemblyCopyright("JFallenArch. Copyright ©  2021")]
+[assembly: AssemblyTrademark("Lao Tax Recursive")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
