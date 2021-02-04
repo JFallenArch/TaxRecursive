@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+
 
 namespace TaxRecursive
 {
@@ -93,27 +95,34 @@ namespace TaxRecursive
             do
             {
                 Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Assembly assemblydata = typeof(Program).Assembly;
+                Console.WriteLine("Lao Tax Recursive by JFA - ver {0}\n\n", assemblydata.GetName().Version);
+                Console.ForegroundColor = ConsoleColor.White;
+
                 Console.WriteLine("Choose Function:" +
                     "\n\n" +
-                    "Press 1 to find your Net (after Tax), in case you already know the full revenue" +
+                    "Press [1] to find your Net (after Tax), in case you already know the full revenue" +
                     "\n" +
-                    "Press 2 to find the Revenue when you only know the Net Payment..." +
+                    "Press [2] to find the Revenue when you only know the Net Payment..." +
                     "\n\n" +
                     "Press [Esc] to Exit.");
                 CKI = Console.ReadKey();
-                if (CKI.Key == ConsoleKey.NumPad1)
+                if (CKI.Key == ConsoleKey.NumPad1 || CKI.Key == ConsoleKey.D1)
                 {
                     do
                     {
                         Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.WriteLine("Finding your Net, please enter your Full Revenue:");
+                        Console.ForegroundColor = ConsoleColor.White;
                         int RV = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("\n");
 
-
+                        Console.ForegroundColor = ConsoleColor.White;
                         TaxCalculator.FindNet(RV);
                         Console.WriteLine("__________________________________\n");
-                        Console.WriteLine("Your Revenue is: {0} LAK", RV.ToString("N0"));
+                        Console.WriteLine("Your Revenue is: <b>{0}</b> LAK", RV.ToString("N0"));
                         Console.WriteLine("\n" +
                                           "        your SSO 5.5% is: {0} LAK", TaxCalculator._SSO.ToString("N0"));
                         Console.WriteLine("        Taxable Revenue is: {0} LAK", TaxCalculator._Taxable.ToString("N0"));
@@ -121,19 +130,23 @@ namespace TaxRecursive
                         Console.WriteLine("\nYour Net is: {0}", TaxCalculator._Net.ToString("N0"));
                         Console.WriteLine("__________________________________\n");
 
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.WriteLine("\n\n\nPress [Esc] to back. Press any key to Find Net again...");
                         CKI = Console.ReadKey();
                     }
                     while (CKI.Key != ConsoleKey.Escape);
                     CKI = new ConsoleKeyInfo();//clear key
                 }
-                else if (CKI.Key == ConsoleKey.NumPad2)
+                else if (CKI.Key == ConsoleKey.NumPad2 || CKI.Key == ConsoleKey.D2)
                 {
                     do
                     {
                         Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.WriteLine("Finding the True Revenue, Please enter your Current Net:");
+                        Console.ForegroundColor = ConsoleColor.White;
                         int Fix_TargetNet = Convert.ToInt32(Console.ReadLine());
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.WriteLine("\n");
                         Console.WriteLine("__________________________________\n");
 
@@ -171,6 +184,7 @@ namespace TaxRecursive
 
                         Console.WriteLine("__________________________________\n\n");
 
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("Your Net is: {0} LAK", Genenated_Net.ToString("N0"));
                         Console.WriteLine("\n" +
                                           "        SSO 5.5% is: {0} LAK", TaxCalculator._SSO.ToString("N0"));
@@ -180,7 +194,7 @@ namespace TaxRecursive
 
 
 
-
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.WriteLine("\n\n\nPress [Esc] to back. Press any key to Find Revenue again...");
                         CKI = Console.ReadKey();
                     }
