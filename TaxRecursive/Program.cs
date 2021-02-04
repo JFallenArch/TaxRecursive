@@ -89,87 +89,89 @@ namespace TaxRecursive
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Choose Function: \n\nPress 1 to Find Net\nPress 2 to find Revenue...");
-            ConsoleKeyInfo CKI = Console.ReadKey();
-            if (CKI.Key == ConsoleKey.NumPad1)
+            ConsoleKeyInfo CKI;
+            do
             {
-                do
+                Console.Clear();
+                Console.WriteLine("Choose Function: \n\nPress 1 to Find Net\nPress 2 to find Revenue...\nPress [Esc] to Exit.");
+                CKI = Console.ReadKey();
+                if (CKI.Key == ConsoleKey.NumPad1)
                 {
-                    Console.Clear();
-                    Console.WriteLine("Finding Net, Please enter your Revenue:");
-                    int RV = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("\n");
-
-
-
-                    Console.WriteLine("Revenue is: {0}", RV.ToString("N0"));
-                    Console.WriteLine("Net is: {0}", TaxCalculator.FindNet(RV).ToString("N0"));
-                    Console.WriteLine("   Taxable RV is: {0}", TaxCalculator._Taxable.ToString("N0"));
-                    Console.WriteLine("   SSO is: {0}", TaxCalculator._SSO.ToString("N0"));
-                    Console.WriteLine("   Tax is: {0}", TaxCalculator._SumTax.ToString("N0"));
-
-                    Console.WriteLine("\n\n\nPress [Esc] to Exit. Press any key to Find Net again...");
-                    Console.ReadKey();
-                }
-                while (CKI.Key != ConsoleKey.Escape);
-            }
-            else if (CKI.Key == ConsoleKey.NumPad2)
-            {
-                do
-                {
-                    Console.Clear();
-                    Console.WriteLine("Finding the True Revenue, Please enter your Current Net:");
-                    int Fix_TargetNet = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("\n");
-
-                    int Starting_TX, Loop_Guess_TX, Genenated_Net;
-                    float ErrorRate;
-
-                    Starting_TX = Convert.ToInt32(Fix_TargetNet * 1.25f);//+25% Max Percentage
-                    Loop_Guess_TX = Starting_TX;
-                    Genenated_Net = TaxCalculator.FindNet(Starting_TX);
-                    ErrorRate = Convert.ToSingle(Genenated_Net - Fix_TargetNet) / Convert.ToSingle(Fix_TargetNet);//Starting Net
-
-                    //Speed Run * 0.99
-                    do//>0.5%
+                    do
                     {
-                        ErrorRate = Convert.ToSingle(Genenated_Net - Fix_TargetNet) / Convert.ToSingle(Fix_TargetNet); //Find the Error Rate
-                        if (ErrorRate > 0)
+                        Console.Clear();
+                        Console.WriteLine("Finding Net, Please enter your Revenue:");
+                        int RV = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("\n");
+
+
+
+                        Console.WriteLine("Your Revenue is: {0}", RV.ToString("N0"));
+                        Console.WriteLine("Your Net is: {0}", TaxCalculator.FindNet(RV).ToString("N0"));
+                        Console.WriteLine("    Taxable Revenue is: {0}", TaxCalculator._Taxable.ToString("N0"));
+                        Console.WriteLine("    SSO 5.5% is: {0}", TaxCalculator._SSO.ToString("N0"));
+                        Console.WriteLine("    Sum of Tax is: {0}", TaxCalculator._SumTax.ToString("N0"));
+
+                        Console.WriteLine("\n\n\nPress [Esc] to back. Press any key to Find Net again...");
+                        CKI = Console.ReadKey();
+                    }
+                    while (CKI.Key != ConsoleKey.Escape);
+                }
+                else if (CKI.Key == ConsoleKey.NumPad2)
+                {
+                    do
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Finding the True Revenue, Please enter your Current Net:");
+                        int Fix_TargetNet = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("\n");
+
+                        int Starting_TX, Loop_Guess_TX, Genenated_Net;
+                        float ErrorRate;
+
+                        Starting_TX = Convert.ToInt32(Fix_TargetNet * 1.25f);//+25% Max Percentage
+                        Loop_Guess_TX = Starting_TX;
+                        Genenated_Net = TaxCalculator.FindNet(Starting_TX);
+                        ErrorRate = Convert.ToSingle(Genenated_Net - Fix_TargetNet) / Convert.ToSingle(Fix_TargetNet);//Starting Net
+
+                        //Speed Run * 0.99
+                        do//>0.5%
                         {
-                            Loop_Guess_TX = Convert.ToInt32(Loop_Guess_TX * 0.99f);//Reducing
-                            Genenated_Net = TaxCalculator.FindNet(Loop_Guess_TX); //Find Possibility                        
+                            ErrorRate = Convert.ToSingle(Genenated_Net - Fix_TargetNet) / Convert.ToSingle(Fix_TargetNet); //Find the Error Rate
+                            if (ErrorRate > 0)
+                            {
+                                Loop_Guess_TX = Convert.ToInt32(Loop_Guess_TX * 0.99f);//Reducing
+                                Genenated_Net = TaxCalculator.FindNet(Loop_Guess_TX); //Find Possibility                        
+                            }
+                            ErrorRate = Convert.ToSingle(Genenated_Net - Fix_TargetNet) / Convert.ToSingle(Fix_TargetNet);
+                            Console.WriteLine("Phase 1 - Error Rate: {0}%", (ErrorRate * 100).ToString());
                         }
-                        ErrorRate = Convert.ToSingle(Genenated_Net - Fix_TargetNet) / Convert.ToSingle(Fix_TargetNet);
-                        Console.WriteLine("Phase 1 - Error Rate: {0}%", (ErrorRate * 100).ToString());
+                        while (ErrorRate > 0.01f);
+
+                        //Reducing Minus Left
+                        while (ErrorRate > 0)
+                        {
+                            int X = Genenated_Net - Fix_TargetNet;
+                            Loop_Guess_TX -= X;
+                            Genenated_Net = TaxCalculator.FindNet(Loop_Guess_TX); //Find Possibility
+                            ErrorRate = Convert.ToSingle(Genenated_Net - Fix_TargetNet) / Convert.ToSingle(Fix_TargetNet);
+                            Console.WriteLine("Phase 2 - Error Rate: {0}%", (ErrorRate * 100).ToString());
+                        }
+
+                        Console.WriteLine("RV: {0}", Loop_Guess_TX.ToString("N0"));
+                        Console.WriteLine("GN: {0}", Genenated_Net.ToString("N0"));
+
+
+
+                        Console.WriteLine("\n\n\nPress [Esc] to back. Press any key to Find Revenue again...");
+                        CKI = Console.ReadKey();
                     }
-                    while (ErrorRate > 0.01f);
+                    while (CKI.Key != ConsoleKey.Escape);
 
-                    //Reducing Minus Left
-                    while (ErrorRate > 0)
-                    {
-                        int X = Genenated_Net - Fix_TargetNet;
-                        Loop_Guess_TX -= X;
-                        Genenated_Net = TaxCalculator.FindNet(Loop_Guess_TX); //Find Possibility
-                        ErrorRate = Convert.ToSingle(Genenated_Net - Fix_TargetNet) / Convert.ToSingle(Fix_TargetNet);
-                        Console.WriteLine("Phase 2 - Error Rate: {0}%", (ErrorRate * 100).ToString());
-                    }
-
-                    Console.WriteLine("RV: {0}", Loop_Guess_TX.ToString("N0"));
-                    Console.WriteLine("GN: {0}", Genenated_Net.ToString("N0"));
-
-
-
-                    Console.WriteLine("\n\n\nPress [Esc] to Exit. Press any key to Find Revenue again...");
-                    Console.ReadKey();
                 }
-                while (CKI.Key != ConsoleKey.Escape);
-
+                CKI = new ConsoleKeyInfo();//clear key
             }
-            else
-            {
-                Console.WriteLine("\n\n\n[Exit]");
-                Console.ReadKey();
-            }
+            while (CKI.Key != ConsoleKey.Escape);
 
 
 
@@ -179,7 +181,7 @@ namespace TaxRecursive
             //Console.WriteLine("\n");        
 
             //Console.WriteLine("Net Number is: {0}", Net.ToString("N0"));
-        
+
             //Console.ReadKey();
         }
 
