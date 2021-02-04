@@ -145,7 +145,7 @@ namespace TaxRecursive
                                 Genenated_Net = TaxCalculator.FindNet(Loop_Guess_TX); //Find Possibility                        
                             }
                             ErrorRate = Convert.ToSingle(Genenated_Net - Fix_TargetNet) / Convert.ToSingle(Fix_TargetNet);
-                            Console.WriteLine("Phase 1 - Error Rate: {0}%", (ErrorRate * 100).ToString());
+                            //Console.WriteLine("Phase 1 - Error Rate: {0}%", (ErrorRate * 100).ToString());
                         }
                         while (ErrorRate > 0.01f);
 
@@ -156,11 +156,15 @@ namespace TaxRecursive
                             Loop_Guess_TX -= X;
                             Genenated_Net = TaxCalculator.FindNet(Loop_Guess_TX); //Find Possibility
                             ErrorRate = Convert.ToSingle(Genenated_Net - Fix_TargetNet) / Convert.ToSingle(Fix_TargetNet);
-                            Console.WriteLine("Phase 2 - Error Rate: {0}%", (ErrorRate * 100).ToString());
+                            //Console.WriteLine("Phase 2 - Error Rate: {0}%", (ErrorRate * 100).ToString());
                         }
 
-                        Console.WriteLine("RV: {0}", Loop_Guess_TX.ToString("N0"));
-                        Console.WriteLine("GN: {0}", Genenated_Net.ToString("N0"));
+                        Console.WriteLine("Your FULL Revenue: {0}", Loop_Guess_TX.ToString("N0"));
+                        //Console.WriteLine("GN: {0}", Genenated_Net.ToString("N0"));
+                        Console.WriteLine("Your Net is: {0}", Genenated_Net.ToString("N0"));
+                        Console.WriteLine("    Taxable Revenue is: {0}", TaxCalculator._Taxable.ToString("N0"));
+                        Console.WriteLine("    SSO 5.5% is: {0}", TaxCalculator._SSO.ToString("N0"));
+                        Console.WriteLine("    Sum of Tax is: {0}", TaxCalculator._SumTax.ToString("N0"));
 
 
 
