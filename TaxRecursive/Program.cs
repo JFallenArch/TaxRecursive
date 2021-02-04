@@ -6,6 +6,7 @@ namespace TaxRecursive
 {
     class Program
     {
+
         public static class TaxCalculator
         {
             public static int _Taxable, _SSO, _SumTax, _Net;
