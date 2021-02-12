@@ -126,7 +126,7 @@ namespace TaxRecursive
                         Console.ForegroundColor = ConsoleColor.White;
                         TaxCalculator.FindNet(RV);
                         Console.WriteLine("__________________________________\n");
-                        Console.WriteLine("Your Revenue is: <b>{0}</b> LAK", RV.ToString("N0"));
+                        Console.WriteLine("Your Revenue is: {0} LAK", RV.ToString("N0"));
                         Console.WriteLine("\n" +
                                           "        your SSO 5.5% is: {0} LAK", TaxCalculator._SSO.ToString("N0"));
                         Console.WriteLine("        Taxable Revenue is: {0} LAK", TaxCalculator._Taxable.ToString("N0"));
